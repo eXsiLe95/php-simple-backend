@@ -1,25 +1,33 @@
 <?php
 
+$answer = "";
+
 // ROUTES #########################################################################################
+
+if (!$_SERVER['REQUEST_METHOD'])
+{
+	// ToDo: Error handling
+}
 
 switch ($_SERVER['REQUEST_METHOD'])
 {
 	case "GET":
-		requestGet();
+		$answer = requestGet();
 		break;
 	case "POST":
-		requestPost();
+		$answer = requestPost();
 		break;
 	case "PUT":
-		requestPut();
+		$answer = requestPut();
 		break;
 	case "DELETE":
-		requestDelete();
+		$answer = requestDelete();
 		break;
 	default:
-		echo "Unsupported request method.\r\n";
+		$answer = "Unsupported request method.\r\n";
 		break;
 }
+echo $answer;
 
 function requestGet()
 {
@@ -29,6 +37,9 @@ function requestGet()
 		echo $key . ": " . $value . "\r\n";
 	}
 	// ToDo: These key value pairs can later be translated to fetch any data or to fetch one specific data entry
+	http_response_code(200);
+
+	return "OK";
 }
 
 function requestPost()
@@ -39,6 +50,9 @@ function requestPost()
 		echo $key . ": " . $value . "\r\n";
 	}
 	// ToDo: These key value pairs can later be translated to create new data on server
+	http_response_code(201);
+
+	return "Created";
 }
 
 function requestPut()
@@ -47,10 +61,16 @@ function requestPut()
 	// ToDo: Implement database service
 	// ToDo: Read PUT data using fopen("php://input", "r");
 	// ToDo: Don't forget to close the data stream!
+	http_response_code(204);
+
+	return "No response";
 }
 
-function requestDelete() {
+function requestDelete()
+{
 	// DELETE: Delete request to delete data on server
 	// ToDo: Parse URI to fetch which data to delete
-	echo $_SERVER['REQUEST_URI'];
+	http_response_code(202);
+
+	return "Accepted";
 }

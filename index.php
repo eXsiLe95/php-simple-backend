@@ -2,26 +2,55 @@
 
 // ROUTES #########################################################################################
 
-if ($_SERVER['REQUEST_METHOD'] == 'GET')
+switch ($_SERVER['REQUEST_METHOD'])
+{
+	case "GET":
+		requestGet();
+		break;
+	case "POST":
+		requestPost();
+		break;
+	case "PUT":
+		requestPut();
+		break;
+	case "DELETE":
+		requestDelete();
+		break;
+	default:
+		echo "Unsupported request method.\r\n";
+		break;
+}
+
+function requestGet()
 {
 	// READ: Get request to fetch data from server
-	echo "GET";
+	foreach ($_GET as $key => $value)
+	{
+		echo $key . ": " . $value . "\r\n";
+	}
+	// ToDo: These key value pairs can later be translated to fetch any data or to fetch one specific data entry
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST')
+function requestPost()
 {
-	// CREATE: Post request to server to create new data
-	echo "POST";
+	// CREATE: Post request to create new data on server
+	foreach ($_POST as $key => $value)
+	{
+		echo $key . ": " . $value . "\r\n";
+	}
+	// ToDo: These key value pairs can later be translated to create new data on server
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'PUT')
+function requestPut()
 {
 	// UPDATE: Put request to update data on server
-	echo "PUT";
+	// ToDo: Implement database service
+	// ToDo: Read PUT data using fopen("php://input", "r");
+	// ToDo: Don't forget to close the data stream!
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'DELETE')
-{
-	// DELETE: Delete request to delete data from server
-	echo "DELETE";
+function requestDelete() {
+	// DELETE: Delete request to delete data on server
+	// ToDo: Parse URI to fetch which data to delete
+	echo $_SERVER['REQUEST_URI'];
 }

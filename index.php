@@ -7,6 +7,8 @@ $answer = "";
 if (!$_SERVER['REQUEST_METHOD'])
 {
 	// ToDo: Error handling
+	http_response_code(405);
+	echo "Not allowed";
 }
 
 switch ($_SERVER['REQUEST_METHOD'])
